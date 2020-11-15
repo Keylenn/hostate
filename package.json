@@ -1,11 +1,17 @@
 {
   "name": "hostas",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/Keylenn/hostas.git",
   "keywords": [
     "react-hooks",
     "state"
+  ],
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "types"
   ],
   "author": "Keylenn <darklight_on@163.com>",
   "license": "MIT",

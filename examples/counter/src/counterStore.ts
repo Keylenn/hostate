@@ -1,4 +1,11 @@
-import {createScopeStore} from "hostas/lib/hostas"
+/*
+ * @Description: 
+ * @Author: hejilun
+ * @Date: 2020-11-15 20:38:27
+ * @LastEditors: hejilun
+ * @LastEditTime: 2020-11-15 22:42:35
+ */
+import {createScopeStore} from "hostas/lib"
 
 
 const initialState: number = 0;

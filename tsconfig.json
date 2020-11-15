@@ -4,9 +4,11 @@
     "jsx": "react",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./types"
+    "declarationDir": "lib",
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["node_modules", "lib"]
+
 }
