@@ -1,0 +1,12 @@
+{
+  "extends": "@efox/emp-tsconfig",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "./types"
+  },
+  "include": [
+    "src"
+  ]
+}
