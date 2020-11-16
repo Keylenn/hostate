@@ -5,7 +5,7 @@
  * @LastEditors: hejilun
  * @LastEditTime: 2020-11-16 21:46:10
  */
-import {createScopeStore} from "hostas"
+import {createScopeStore} from "hostate"
 
 
 const initialState: number = 0;

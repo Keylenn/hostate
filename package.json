@@ -1,12 +1,12 @@
 {
-  "name": "hostas",
+  "name": "hostate",
   "version": "1.0.0",
-  "repository": "https://github.com/Keylenn/hostas.git",
+  "repository": "https://github.com/Keylenn/hostate.git",
   "keywords": [
     "react-hooks",
     "state"
   ],
-  "main": "lib/hostas.js",
+  "main": "lib/hostate.js",
   "types": "types/index.d.ts",
   "files": [
     "lib",

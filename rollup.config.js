@@ -20,7 +20,7 @@ export default [
   // CommonJS
   {
     input: 'src/index.ts',
-    output: {file: 'lib/hostas.js', format: 'cjs', indent: false},
+    output: {file: 'lib/hostate.js', format: 'cjs', indent: false},
     external,
     plugins: [
       nodeResolve({
