@@ -3,7 +3,7 @@
  * @Author: hejilun
  * @Date: 2020-11-15 21:10:06
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-15 22:42:15
+ * @LastEditTime: 2020-11-16 22:20:01
  */
 import nodeResolve from '@rollup/plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
@@ -20,7 +20,7 @@ export default [
   // CommonJS
   {
     input: 'src/index.ts',
-    output: {file: 'lib/index.js', format: 'cjs', indent: false},
+    output: {file: 'lib/hostas.js', format: 'cjs', indent: false},
     external,
     plugins: [
       nodeResolve({

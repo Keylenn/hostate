@@ -3,9 +3,9 @@
  * @Author: hejilun
  * @Date: 2020-11-15 20:38:27
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-15 22:42:35
+ * @LastEditTime: 2020-11-16 21:46:10
  */
-import {createScopeStore} from "hostas/lib"
+import {createScopeStore} from "hostas"
 
 
 const initialState: number = 0;
