@@ -3,17 +3,26 @@
  * @Author: hejilun
  * @Date: 2020-11-15 20:32:28
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-15 20:53:40
+ * @LastEditTime: 2020-11-20 17:07:47
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Counter from './Counter';
+import Info from './Info'
+import Com from './Com'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Counter />
+    <br />
+    <br />
+    <Info />
+    <br />
+    <br />
+    <Com />
   </React.StrictMode>,
   document.getElementById('root')
 );

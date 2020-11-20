@@ -1,10 +1,9 @@
 import React from "react";
-import { CounterProvider, useGetState, useActions} from "./counterStore";
+import { CounterProvider, useStore, useActions} from "./counterStore";
 
 function ChildInStore({ id = "0", btns = ["+", "-"] }) {
   console.log("ChildInStore render-----");
-  const { inc, dec } = useActions()
-  const count = useGetState()
+  const [count, { inc,dec }] = useStore()
   return (
     <div>
       Child{id} in Store----count:{count}
