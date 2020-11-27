@@ -3,9 +3,9 @@
  * @Author: hejilun
  * @Date: 2020-11-15 20:38:27
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-20 18:59:35
+ * @LastEditTime: 2020-11-27 18:33:32
  */
-import {createScopeStore} from "hostate"
+import {createScopeStore} from "./hostate"
 // import {createScopeStore} from "./hostate"
 
 
@@ -23,12 +23,17 @@ const actionCreators = {
   }
 };
 
-const counterStore = createScopeStore(initialState, actionCreators);
+const subscription = {
+  dbCount: (count: number ) => count * count
+}
+
+const counterStore = createScopeStore(initialState, actionCreators, subscription);
 
 export const {
   Provider: CounterProvider,
   useActions,
-  useStore
+  useStore,
+  useSubscription
 } = counterStore;
 
 export default counterStore;

@@ -6,22 +6,26 @@ import {ScopeStore} from './types/store'
 
 const UNIQUE_SYMBOL = Symbol()
 
-export default function createScopeStore<I, A extends ActionCreatorsMapObject<I, A>>(
+export default function createScopeStore<I, A extends ActionCreatorsMapObject<I, A>, S extends Record<string,(state: I) => any>>(
   initialState: I,
   actionCreatorsMap: A,
-): ScopeStore<I, A> {
+  subscription?: S,
+): ScopeStore<I, A, S> {
   const StateContext = React.createContext<I>(initialState)
   const DispatcherContext = React.createContext<Actions<A> | typeof UNIQUE_SYMBOL>(UNIQUE_SYMBOL)
 
-  // const subCtxsMap: EmptyObj | SubCtxsMapObject<I, unknown> = {}
-  // if (typeof initialState === 'object') {
-  //   for (const key in initialState) {
-  //     const initVal = initialState[key]
-  //     const Ctx = React.createContext<typeof initVal>(initVal)
-  //     ;(subCtxsMap as SubCtxsMapObject<I, typeof initVal>)[key] = Ctx
-  //   }
-  // }
-  // const subProviders: SubProvider<I>[] = Object.values(subCtxsMap)
+  console.log('subscription', subscription)
+
+  const subCtxsMap: any = {}
+  if (typeof subscription === 'object') {
+    for (const key in subscription) {
+      const initVal = subscription[key](initialState)
+      const Ctx = React.createContext<typeof initVal>(initVal)
+      ;(subCtxsMap as any)[key] = Ctx
+    }
+  }
+  const subCtxs: any[] = Object.values(subCtxsMap)
+  console.log(`subCtxs:`, subCtxs)
 
   function Provider({children}: {children: React.ReactNode}) {
     const [state, setState] = React.useState(initialState)
@@ -42,13 +46,13 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
     return (
       <DispatcherContext.Provider value={memoActions}>
         <StateContext.Provider value={state}>
-          {/* {subProviders.length
-            ? subProviders.reduce((prev, Provider, idx) => {
-                const key = Object.keys(state)[idx] as keyof I
-                return <Provider value={state[key]}>{prev}</Provider>
+          {subCtxs.length
+            ? subCtxs.reduce((prev, ctx, idx) => {
+                const value = Object.values(subscription as object)[idx](state)
+                return <ctx.Provider value={value}>{prev}</ctx.Provider>
               }, children)
-            : children} */}
-            {children}
+            : children}
+            {/* {children} */}
         </StateContext.Provider>
       </DispatcherContext.Provider>
     )
@@ -62,7 +66,7 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
     return value
   }
 
-  const useStore: ScopeStore<I, A>['useStore']= () => {
+  const useStore: ScopeStore<I, A, S>['useStore']= () => {
     return [React.useContext(StateContext), useActions()]
   }
 
@@ -71,10 +75,22 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
   //   return React.useContext(Ctx ?? StateContext)
   // }
 
+  const useSubscription: ScopeStore<I, A, S>['useSubscription'] = subKey => {
+    if (subKey === void 0) {
+      throw new Error('useSubscription requires a key as a parameter, Please check')
+    }
+    const ctx = (subCtxsMap as any)[subKey]
+    if (ctx === void 0) {
+      throw new Error('Please make sure to pass in subscription as the third parameter when creatingScopeStore')
+    }
+    return React.useContext(ctx)
+  }
+
   return {
     Provider,
     useActions,
-    useStore
+    useStore,
+    useSubscription
   }
 }
 
