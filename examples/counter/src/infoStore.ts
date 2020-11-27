@@ -3,10 +3,10 @@
  * @Author: hejilun
  * @Date: 2020-11-20 14:22:39
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-20 18:59:48
+ * @LastEditTime: 2020-11-27 21:53:05
  */
-import {createScopeStore} from "hostate";
-// import {createScopeStore} from "./hostate";
+// import {createScopeStore} from "hostate";
+import {createScopeStore} from "./hostate";
 
 export interface StateType {
   name: string;

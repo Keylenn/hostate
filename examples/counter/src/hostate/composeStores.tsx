@@ -37,9 +37,15 @@ export default function composeStores<T extends Record<string, TscopeStore>>(sto
     return useActions() as ReturnType<T[K]['useActions']>
   }
 
+  const useSubscriptionByKey = <K extends keyof T, S extends Parameters<T[K]['useSubscription']>[0]>(key: K, subKey: S) => {
+    const {useSubscription} = storesConfig[key]
+    return useSubscription(subKey) as ReturnType<T[K]['useSubscription']>
+  }
+
   return {
     Provider,
     useStoresByKey,
     useActionsByKey,
+    useSubscriptionByKey,
   }
 }

@@ -81,7 +81,7 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
     }
     const ctx = (subCtxsMap as any)[subKey]
     if (ctx === void 0) {
-      throw new Error('Please make sure to pass in subscription as the third parameter when creatingScopeStore')
+      throw new Error(`subscription has no a attribute named ${subKey},Please check! Or you don't pass in subscription as the third parameter when creatingScopeStore`)
     }
     return React.useContext(ctx)
   }
