@@ -19,7 +19,6 @@ import {createScopeStore} from "hostate"
 
 // 创建counterStore
 const initialState: number = 0
-// action默认把state当作最后一个参数, 返回useState中dispatch的参数，即 (...args, currState): React.SetStateAction
 const actionCreators = {
   reset() {
     return initialState
@@ -104,8 +103,7 @@ const actionCreators = {
   setInfo(newInfo: Partial<StateType>) {
     return (prevInfo: StateType) => ({ ...prevInfo, ...newInfo })
   },
-  resetInfo(currInfo: StateType) {
-    console.log("currInfo", currInfo)
+  resetInfo() {
     return initialState
   }
 }
