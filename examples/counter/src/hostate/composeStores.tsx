@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {TscopeStore} from './createScopeStore'
-import {ChiProvider} from './types/store'
+import {ChiProvider} from './types/common'
 
 export function composeProviders(providers: ChiProvider[]): ChiProvider {
   const CompProvider = ({children}: {children: React.ReactNode}) => (
@@ -37,15 +37,15 @@ export default function composeStores<T extends Record<string, TscopeStore>>(sto
     return useActions() as ReturnType<T[K]['useActions']>
   }
 
-  const useSubscriptionByKey = <K extends keyof T, S extends Parameters<T[K]['useSubscription']>[0]>(key: K, subKey: S) => {
-    const {useSubscription} = storesConfig[key]
-    return useSubscription(subKey) as ReturnType<T[K]['useSubscription']>
-  }
+  // const useSubscriptionByKey = <K extends keyof T, S extends Parameters<T[K]['useSubscription']>[0]>(key: K, subKey: S) => {
+  //   const useSubscription  = storesConfig[key].useSubscription as T[K]['useSubscription']
+  //   return useSubscription(subKey) as ReturnType<typeof useSubscription>
+  // }
 
   return {
     Provider,
     useStoresByKey,
     useActionsByKey,
-    useSubscriptionByKey,
+    // useSubscriptionByKey,
   }
 }

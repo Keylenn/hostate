@@ -1,42 +1,25 @@
 import * as React from 'react'
-// import {EmptyObj} from './types/common'
-import {ActionCreatorsMapObject, Actions} from './types/action'
-// import {ScopeExcObjStore, ScopeObjStore, SubCtxsMapObject, SubProvider, ScopeStore} from './types/store'
-import {ScopeStore} from './types/store'
+import {ActionCreatorsMapObject} from './types/action'
 
 const UNIQUE_SYMBOL = Symbol()
 
-export default function createScopeStore<I, A extends ActionCreatorsMapObject<I, A>, S extends Record<string,(state: I) => any>>(
+export default function createScopeStore<I, A extends ActionCreatorsMapObject<I, A>>(
   initialState: I,
-  actionCreatorsMap: A,
-  subscription?: S,
-): ScopeStore<I, A, S> {
+  actionCreatorsMap: A
+) {
+
+  type Actions = {[P in keyof A]: (...args: Parameters<A[P]>) => void}
+
   const StateContext = React.createContext<I>(initialState)
-  const DispatcherContext = React.createContext<Actions<A> | typeof UNIQUE_SYMBOL>(UNIQUE_SYMBOL)
-
-  console.log('subscription', subscription)
-
-  const subCtxsMap: any = {}
-  if (typeof subscription === 'object') {
-    for (const key in subscription) {
-      const initVal = subscription[key](initialState)
-      const Ctx = React.createContext<typeof initVal>(initVal)
-      ;(subCtxsMap as any)[key] = Ctx
-    }
-  }
-  const subCtxs: any[] = Object.values(subCtxsMap)
-  console.log(`subCtxs:`, subCtxs)
+  const DispatcherContext = React.createContext<Actions | typeof UNIQUE_SYMBOL>(UNIQUE_SYMBOL)
 
   function Provider({children}: {children: React.ReactNode}) {
     const [state, setState] = React.useState(initialState)
-    const stateRef = React.useRef(initialState)
-    stateRef.current = state
-
     const memoActions = React.useMemo(() => {
-      const actions = {} as Actions<A>
+      const actions = {} as Actions
       for (const key in actionCreatorsMap) {
-        actions[key] = async (...args) => {
-          const newState = await actionCreatorsMap[key](...args, stateRef.current)
+        actions[key] = async (...args: any[]) => {
+          const newState = await actionCreatorsMap[key](...args)
           setState(newState)
         }
       }
@@ -46,51 +29,28 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
     return (
       <DispatcherContext.Provider value={memoActions}>
         <StateContext.Provider value={state}>
-          {subCtxs.length
-            ? subCtxs.reduce((prev, ctx, idx) => {
-                const value = Object.values(subscription as object)[idx](state)
-                return <ctx.Provider value={value}>{prev}</ctx.Provider>
-              }, children)
-            : children}
-            {/* {children} */}
+            {children}
         </StateContext.Provider>
       </DispatcherContext.Provider>
     )
   }
 
-  function useActions() {
+  function useActions(): Actions {
     const value = React.useContext(DispatcherContext)
     if (value === UNIQUE_SYMBOL) {
       throw new Error('Component must be wrapped with Provider')
-    }
+    } 
     return value
   }
 
-  const useStore: ScopeStore<I, A, S>['useStore']= () => {
+  const useStore = (): [I, Actions] => {
     return [React.useContext(StateContext), useActions()]
-  }
-
-  // const useGetState: ScopeExcObjStore<I, A>['useGetState'] | ScopeObjStore<I, A>['useGetState'] = subKey => {
-  //   const Ctx = (subCtxsMap as any)[subKey]
-  //   return React.useContext(Ctx ?? StateContext)
-  // }
-
-  const useSubscription: ScopeStore<I, A, S>['useSubscription'] = subKey => {
-    if (subKey === void 0) {
-      throw new Error('useSubscription requires a key as a parameter, Please check')
-    }
-    const ctx = (subCtxsMap as any)[subKey]
-    if (ctx === void 0) {
-      throw new Error(`subscription has no a attribute named ${subKey},Please check! Or you don't pass in subscription as the third parameter when creatingScopeStore`)
-    }
-    return React.useContext(ctx)
   }
 
   return {
     Provider,
     useActions,
-    useStore,
-    useSubscription
+    useStore
   }
 }
 

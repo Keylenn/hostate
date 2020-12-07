@@ -3,7 +3,7 @@
  * @Author: hejilun
  * @Date: 2020-11-15 20:38:27
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-27 22:14:24
+ * @LastEditTime: 2020-12-07 17:27:59
  */
 import {createScopeStore} from "./hostate"
 // import {createScopeStore} from "./hostate"
@@ -23,18 +23,18 @@ const actionCreators = {
   }
 };
 
-const subscription = {
-  dbCount: (count: number ) => count * count,
-  countAdd2: (count: number ) => count + 2
-}
+// const subscription = {
+//   dbCount: (count: number ) => count * count,
+//   countToFixed2: (count: number ) => count.toFixed(2)
+// }
 
-const counterStore = createScopeStore(initialState, actionCreators, subscription);
+// const counterStore = createScopeStore(initialState, actionCreators, subscription);
+const counterStore = createScopeStore(initialState, actionCreators);
 
 export const {
   Provider: CounterProvider,
   useActions,
   useStore,
-  useSubscription
 } = counterStore;
 
 export default counterStore;

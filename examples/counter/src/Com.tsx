@@ -1,5 +1,6 @@
 import React from "react";
-import { Provider, useStoresByKey, useActionsByKey, useSubscriptionByKey } from "./comStores";
+import { Provider, useStoresByKey, useActionsByKey } from "./comStores";
+// import { Provider, useStoresByKey, useActionsByKey, useSubscriptionByKey } from "./comStores";
 
 function Counter() {
   console.log(`Counter render`)
@@ -29,15 +30,15 @@ function Info() {
   )
 }
 
-function SubDbCount() {
-  console.log(`DbCount render`)
-  const dbCount = useSubscriptionByKey("counterStore", "dbCount")
-  return (
-    <div>
-      dbCount:{dbCount}
-    </div>
-  )
-}
+// function SubDbCount() {
+//   console.log(`DbCount render`)
+//   const dbCount = useSubscriptionByKey("counterStore", "dbCount")
+//   return (
+//     <div>
+//       dbCount:{dbCount}
+//     </div>
+//   )
+// }
 
 
 export default function Com() {
@@ -45,7 +46,7 @@ export default function Com() {
     <Provider>
       <Counter />
       <Info />
-      <SubDbCount />
+      {/* <SubDbCount /> */}
     </Provider>
   );
 }

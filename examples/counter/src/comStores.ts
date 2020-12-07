@@ -3,7 +3,7 @@
  * @Author: hejilun
  * @Date: 2020-11-20 17:02:22
  * @LastEditors: hejilun
- * @LastEditTime: 2020-11-27 21:56:07
+ * @LastEditTime: 2020-12-07 17:27:04
  */
 // import {composeStores} from "hostate"
 import {composeStores} from "./hostate"
@@ -15,7 +15,7 @@ export const {
   Provider,
   useStoresByKey,
   useActionsByKey,
-  useSubscriptionByKey,
+  // useSubscriptionByKey,
 } = composeStores({
   counterStore,
   infoStore
