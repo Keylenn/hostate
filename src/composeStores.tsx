@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {TscopeStore} from './createScopeStore'
-import {ChiProvider, ComposeStores} from './types/store'
+import {ChiProvider} from './types/common'
 
 export function composeProviders(providers: ChiProvider[]): ChiProvider {
   const CompProvider = ({children}: {children: React.ReactNode}) => (
@@ -17,7 +17,7 @@ export function composeProviders(providers: ChiProvider[]): ChiProvider {
   return CompProvider
 }
 
-export default function composeStores<T extends Record<string, TscopeStore>>(storesConfig: T): ComposeStores<T> {
+export default function composeStores<T extends Record<string, TscopeStore>>(storesConfig: T) {
   if (!Object.keys(storesConfig).length) {
     throw new Error('storesConfig can not be an empty object')
   }
@@ -26,19 +26,20 @@ export default function composeStores<T extends Record<string, TscopeStore>>(sto
 
   const Provider = composeProviders(providers)
 
-  const useStoreByKey = (key: keyof T) => {
-    const {useGetState, useActions} = storesConfig[key]
-    return [useGetState, useActions()]
+
+  const useStoresByKey = <K extends keyof T>(key: K) => {
+    const {useStore} = storesConfig[key] as T[K]
+    return useStore() as ReturnType<T[K]['useStore']>
   }
 
-  const useActionsByKey = (key: keyof T) => {
+  const useActionsByKey = <K extends keyof T>(key: K) => {
     const {useActions} = storesConfig[key]
-    return useActions()
+    return useActions() as ReturnType<T[K]['useActions']>
   }
 
   return {
     Provider,
-    useStoreByKey,
+    useStoresByKey,
     useActionsByKey,
   }
 }
