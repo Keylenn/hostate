@@ -5370,10 +5370,10 @@ hoopy@^0.1.4:
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
 
-hostate@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hostate/-/hostate-1.1.0.tgz#c1a390699c631658ce9b550f0d7dcce62d760032"
-  integrity sha512-A415br0mWh6hZcTKPHegXgYNJZCbbVXkY1aUdpcnS+CgPNxQTshAif1/kMMmnEDfW7LIKitDR4+7OsA0ife9JA==
+hostate@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/hostate/-/hostate-2.2.3.tgz#7ea6172ebdf4ba598dc4bb0b029cf7b06149bc38"
+  integrity sha512-0oOGbV9ewVbZcL6e7RiZR+7BYw73Oe+w6zVPi7Fnyqh6v59l/jbsi+gJ/sXmuP5CA73VsHPXx7XPY7wmhGkrqQ==
 
 hosted-git-info@^2.1.4:
   version "2.8.8"
