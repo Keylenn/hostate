@@ -3,7 +3,7 @@
  * @Author: hejilun
  * @Date: 2020-11-15 20:38:27
  * @LastEditors: hejilun
- * @LastEditTime: 2020-12-07 17:27:59
+ * @LastEditTime: 2020-12-20 20:50:03
  */
 import {createScopeStore} from "./hostate"
 // import {createScopeStore} from "./hostate"
@@ -15,8 +15,8 @@ const actionCreators = {
   reset() {
     return initialState;
   },
-  inc() {
-    return (c: number) => c + 1;
+  inc(prevCount: number) {
+    return prevCount + 1;
   },
   dec() {
     return (c: number) => c - 1;
