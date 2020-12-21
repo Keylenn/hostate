@@ -1,5 +1,5 @@
 import React from "react";
-import { CounterProvider, useStore, useActions} from "./counterStore";
+import { CounterProvider, useStore, useActions, useSubscribe} from "./counterStore";
 
 function ChildInStore({ id = "0", btns = ["+", "-"] }) {
   console.log("ChildInStore render-----");
@@ -13,6 +13,12 @@ function ChildInStore({ id = "0", btns = ["+", "-"] }) {
   )
 }
 
+function SubDbCount() {
+  console.log("SubDbCount render");
+  const dbCount = useSubscribe('dbCount')
+  return <div>dbCount: {dbCount}</div>;
+}
+
 const ResetBtn = () => {
   console.log("resetBtn render");
   const { reset } = useActions()
@@ -24,6 +30,7 @@ export default function Counter() {
     <CounterProvider>
       <ChildInStore btns={["+"]} />
       <ChildInStore id="1" btns={["-"]} />
+      <SubDbCount />
       <ResetBtn />
     </CounterProvider>
   );
