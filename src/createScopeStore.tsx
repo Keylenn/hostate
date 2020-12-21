@@ -5,9 +5,8 @@ const UNIQUE_SYMBOL = Symbol()
 
 export default function createScopeStore<I, A extends ActionCreatorsMapObject<I, A>>(
   initialState: I,
-  actionCreatorsMap: A
+  actionCreatorsMap: A,
 ) {
-
   type Actions = {[P in keyof A]: (...args: Parameters<A[P]>) => void}
 
   const StateContext = React.createContext<I>(initialState)
@@ -37,7 +36,7 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
     const value = React.useContext(DispatcherContext)
     if (value === UNIQUE_SYMBOL) {
       throw new Error('Component must be wrapped with Provider')
-    } 
+    }
     return value
   }
 
@@ -48,7 +47,7 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
   return {
     Provider,
     useActions,
-    useStore
+    useStore,
   }
 }
 
