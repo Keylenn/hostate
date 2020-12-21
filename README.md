@@ -13,7 +13,7 @@ yarn：```yarn add hostate```
 
 ##### ScopeStore Examples: [Counter](https://codesandbox.io/s/hostate-counter-hyuzh)
 
-```
+```jsx
 import React from "react"
 import {createScopeStore} from "hostate"
 
@@ -71,7 +71,7 @@ export default function Counter() {
 
 ##### composeStores Examples: [Counter + Info](https://codesandbox.io/s/hostate-composestores-xv4hg)
 
-```
+```jsx
 import React from "react"
 import {createScopeStore, composeStores} from "hostate"
 
