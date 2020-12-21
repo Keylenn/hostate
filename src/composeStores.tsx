@@ -26,7 +26,6 @@ export default function composeStores<T extends Record<string, TscopeStore>>(sto
 
   const Provider = composeProviders(providers)
 
-
   const useStoresByKey = <K extends keyof T>(key: K) => {
     const {useStore} = storesConfig[key] as T[K]
     return useStore() as ReturnType<T[K]['useStore']>
