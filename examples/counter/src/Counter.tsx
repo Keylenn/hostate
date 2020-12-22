@@ -1,9 +1,9 @@
 import React from "react";
-import { CounterProvider, useStore, useActions} from "./counterStore";
+import counterStore from './counterStore'
 
 function ChildInStore({ id = "0", btns = ["+", "-"] }) {
   console.log("ChildInStore render-----");
-  const [count, { inc, dec }] = useStore()
+  const [count, { inc, dec }] = counterStore.useStore()
   return (
     <div>
       Child{id} in Store----count:{count}
@@ -15,16 +15,16 @@ function ChildInStore({ id = "0", btns = ["+", "-"] }) {
 
 const ResetBtn = () => {
   console.log("resetBtn render");
-  const { reset } = useActions()
+  const { reset } = counterStore.useActions()
   return <button onClick={reset}>reset</button>;
 };
 
 export default function Counter() {
   return (
-    <CounterProvider>
+    <counterStore.Provider>
       <ChildInStore btns={["+"]} />
       <ChildInStore id="1" btns={["-"]} />
       <ResetBtn />
-    </CounterProvider>
+    </counterStore.Provider>
   );
 }
