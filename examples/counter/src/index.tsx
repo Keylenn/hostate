@@ -1,10 +1,3 @@
-/*
- * @Description: 
- * @Author: hejilun
- * @Date: 2020-11-15 20:32:28
- * @LastEditors: hejilun
- * @LastEditTime: 2020-11-15 20:53:40
- */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

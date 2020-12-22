@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: hejilun
- * @Date: 2020-11-15 21:10:06
- * @LastEditors: hejilun
- * @LastEditTime: 2020-12-07 17:56:58
- */
 import nodeResolve from '@rollup/plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import typescript from 'rollup-plugin-typescript2'
