@@ -5,6 +5,7 @@
 
 ## Installation
 npm：```npm i hostate```
+
 yarn：```yarn add hostate```
 
 ## API
@@ -69,7 +70,7 @@ export default function Counter() {
 
 ### ```composeStores(storesConfig)```
 
-##### composeStores Examples: [Counter + Info](https://codesandbox.io/s/hostate-composestores-xv4hg)
+##### composeStores Examples: [InfoCounter](https://codesandbox.io/s/hostate-composestores-xv4hg)
 
 ```jsx
 import React from "react"
@@ -100,8 +101,9 @@ const initialState = {
   age: 23
 }
 const actionCreators = {
-  setInfo(newInfo: Partial<StateType>) {
-    return (prevInfo: StateType) => ({ ...prevInfo, ...newInfo })
+  // 默认把prevState当作第一个参数传入，在调用store返回的actions中无需传递prevState
+  setInfo(prevInfo: StateType, newInfo: Partial<StateType>) {
+    return { ...prevInfo, ...newInfo }
   },
   resetInfo() {
     return initialState
@@ -146,8 +148,8 @@ function Info() {
 export default function App() {
   return (
     <Provider>
-      <Counter />
       <Info />
+      <Counter />
     </Provider>
   )
 }

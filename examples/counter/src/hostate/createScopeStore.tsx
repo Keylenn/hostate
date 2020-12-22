@@ -50,9 +50,9 @@ export default function createScopeStore<I, A extends ActionCreatorsMapObject<I,
 
     return (
       <DispatcherContext.Provider value={memoActions}>
-        <StateContext.Provider value={stateRef.current}>
+        <StateContext.Provider value={state}>
         {subCtxs.length
-            ? subCtxs.reduce((prev, ctx, idx) => <ctx.Provider value={subscriptions[idx](stateRef.current)}>{prev}</ctx.Provider>, children)
+            ? subCtxs.reduce((prev, ctx, idx) => <ctx.Provider value={subscriptions[idx](state)}>{prev}</ctx.Provider>, children)
             : children}
         </StateContext.Provider>
       </DispatcherContext.Provider>

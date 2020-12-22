@@ -1,10 +1,4 @@
-/*
- * @Description: 
- * @Author: hejilun
- * @Date: 2020-11-15 20:38:27
- * @LastEditors: hejilun
- * @LastEditTime: 2020-12-21 23:15:18
- */
+
 import {createScopeStore} from "./hostate"
 
 
