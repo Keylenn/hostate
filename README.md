@@ -68,6 +68,89 @@ export default function Counter() {
 }
 ```
 
+##### ScopeStore Examples: [Info](https://codesandbox.io/s/hostate-subscriptions-vy8jr?file=/src/infoStore.ts)
+
+```jsx
+import React from "react"
+import {createScopeStore} from "hostate"
+
+// 创建infoStore
+interface StateType {
+  name: string
+  age: number
+  gender: number
+}
+
+const initialState = {
+  name: "Tony",
+  age: 23,
+  gender: 0
+}
+const actionCreators = {
+  setInfo(prevInfo: StateType, newInfo: Partial<StateType>) {
+    return { ...prevInfo, ...newInfo }
+  },
+  resetInfo() {
+    return initialState
+  }
+}
+
+// 订阅state
+const subscriptions = {
+  // 只订阅了name，只有name改变了才会重渲染
+  name: (info: StateType) => info.name,
+  // 订阅了gender，实现衍生数据
+  gender: (info: StateType) => (info.gender === 0 ? "女" : "男")
+}
+
+const infoStore = createScopeStore(initialState, actionCreators, subscriptions)
+
+// 直接在组件中使用，上层组件需要用Provider包裹
+function Info() {
+  console.log(`Info render`)
+  const [info, { setInfo, resetInfo }] = infoStore.useStore()
+  return (
+    <div>
+      <p>info: {JSON.stringify(info)}</p>
+      <button onClick={() => setInfo({ name: "Bob" })}>setName</button>
+      <button onClick={() => setInfo({ age: 30 })}>setAge</button>
+      <button onClick={() => setInfo({ gender: 1 })}>setGender</button>
+      <button onClick={() => resetInfo()}>reset</button>
+    </div>
+  )
+}
+
+function InfoName() {
+  console.log(`InfoName render`)
+  const name = infoStore.useSubscribe("name")
+  return (
+    <div>
+      <p>name: {name}</p>
+    </div>
+  )
+}
+
+function InfoGender() {
+  console.log(`InfoGender render`)
+  const gender = infoStore.useSubscribe("gender")
+  return (
+    <div>
+      <p>gender: {gender}</p>
+    </div>
+  )
+}
+
+export default function Info() {
+  return (
+    <infoStore.Provider>
+      <Info />
+      <InfoName />
+      <InfoGender />
+    </infoStore.Provider>
+  )
+}
+```
+
 ### ```composeStores(storesConfig)```
 
 ##### composeStores Examples: [InfoCounter](https://codesandbox.io/s/hostate-composestores-xv4hg)
