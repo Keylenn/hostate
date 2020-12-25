@@ -151,13 +151,13 @@ export default function Info() {
 }
 ```
 
-### ```composeStores(storesConfig)```
+### ```withStores(Component, stores) | <Provider stores={stores}>...</Provider>``` 
 
-##### composeStores Examples: [InfoCounter](https://codesandbox.io/s/hostate-composestores-xv4hg)
+##### composeStores Examples: [InfoCounter](https://codesandbox.io/s/hostate-comprovider-seze8)
 
 ```jsx
 import React from "react"
-import {createScopeStore, composeStores} from "hostate"
+import {createScopeStore, Provider} from "hostate"
 
 // 创建counterStore
 const initialState: number = 0
@@ -195,16 +195,12 @@ const actionCreators = {
 const infoStore = createScopeStore(initialState, actionCreators)
 
 // 组合stores
-const { Provider, useStoresByKey, useActionsByKey } = composeStores({
-  counterStore,
-  infoStore
-})
+const stores = [counterStore, infoStore]
 
 // 直接在组件中使用，上层组件需要用Provider包裹
 function Counter() {
   console.log(`Counter render`)
-  const [count, { inc, dec }] = useStoresByKey("counterStore")
-  const { reset } = useActionsByKey("counterStore")
+  const [count, { inc, dec, reset}] = counterStore.useStore()
   return (
     <div>
       count:{count}
@@ -217,7 +213,7 @@ function Counter() {
 
 function Info() {
   console.log(`Info render`)
-  const [info, { setInfo, resetInfo }] = useStoresByKey("infoStore")
+  const [info, { setInfo, resetInfo }] = infoStore.useStore()
   return (
     <div>
       <p>info: {JSON.stringify(info)}</p>
@@ -228,13 +224,27 @@ function Info() {
   )
 }
 
+// use Provider to compose stores
 export default function App() {
   return (
-    <Provider>
-      <Info />
+    <Provider stores={stores}>
       <Counter />
+      <Info />
     </Provider>
-  )
+  );
 }
+
+// use withStores to compose stores
+
+// function App() {
+//   return (
+//     <>
+//       <Counter />
+//       <Info />
+//     </>
+//   );
+// }
+
+// export default withStores(App, stores);
 ```
 

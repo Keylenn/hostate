@@ -1,4 +1,4 @@
 import createScopeStore from './createScopeStore'
-import composeStores from './composeStores'
+import Provider, {withStores} from './Provider'
 
-export {createScopeStore, composeStores}
+export {createScopeStore, Provider, withStores}

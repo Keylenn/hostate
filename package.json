@@ -1,6 +1,6 @@
 {
   "name": "hostate",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "repository": "https://github.com/Keylenn/hostate.git",
   "keywords": [
     "react-hooks",
